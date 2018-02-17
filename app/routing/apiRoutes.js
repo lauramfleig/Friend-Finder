@@ -12,6 +12,20 @@ module.exports = function (app) {
     app.get("/api/friends", function (req, res) {
         res.json(friendsData);
 
+    });
+
+    app.post("/api/friends", function (req, res) {
+
+        var newFriend = req.body;
+
+        console.log('post received')
+
+        //turning string into numbers
+        newFriend.scores = newFriend.scores.map(parseFloat);
+
+        console.log(newFriend.scores)
+
+
         const friendsScores = friendsData.map(function (friend) {
             return friend.scores
         })
@@ -22,32 +36,25 @@ module.exports = function (app) {
 
         friendsScores.forEach(function (singleFriendScores) {
             const differences = [];
-            console.log('Single Friend Scores: ' + singleFriendScores)
-            
 
-            // singleFriendScores.forEach(function (score, index) {
+            singleFriendScores.forEach(function (score, index) {
+                const difference = newFriend.scores[index] - score;
+                differences.push(Math.abs(difference));
+            })
 
-            //     // calculate difference between current friend
-            //     // and new friends scores at the same index
-            //     const difference = newFriend.scores[index] - score;
+            differenceSum = differences.reduce(function (sum, score) {
+                return sum + score
+            })
 
-            //     // push the absolute value of that difference
-            //     differences.push(Math.abs(difference));
-            // })
+            scoreDifferencesArray.push(differenceSum);
         })
-    });
 
-    app.post("/api/friends", function (req, res) {
+        console.log(scoreDifferencesArray)
 
-        var newFriend = req.body;
-
-    //    turning string into numbers
-        newFriend.scores = newFriend.scores.map(parseFloat);
-
-        console.log(newFriend.scores)
+    const bestMatchIndex = scoreDifferencesArray.indexOf(Math.min(...scoreDifferencesArray))
 
         friendsData.push(newFriend);
 
-        res.json(friendsData);
+        res.json(friendsData[bestMatchIndex]);
     });
 }
