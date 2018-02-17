@@ -41,8 +41,8 @@ module.exports = function (app) {
 
         var newFriend = req.body;
 
-        //turning string into numbers
-        // newFriend.scores = newFriend.scores.map(parseFloat);
+    //    turning string into numbers
+        newFriend.scores = newFriend.scores.map(parseFloat);
 
         console.log(newFriend.scores)
 
