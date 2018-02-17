@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Linking Jquery-->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Friend Survey</title>
+</head>
+
+<body>
+
+    <h1>Friend Finder Survey</h1>
+    <hr>
+    <h2>About You:</h2>
+    <form>
+        Name: (required)
+        <br>
+        <input type="text" name="name" id="name">
+        <br>
+        <br> Link to Photo Image: (required)
+        <br>
+        <input type="text" name="photo" id="photo">
+    </form>
+    <br>
+    <hr> Please answer the following questions on a scale of 1 (strongly disagree)--5 (strongly agree)
+    <h2 class="question-headings">Question 1: </h2>
+    <h3 class="question-text">You get energy from being around other people</h3>
+    <select class="question-option1">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <h2 class="question-headings">Question 2: </h2>
+    <h3 class="question-text">You are open-minded and love hearing other people's ideas</h3>
+    <select class="question-option2">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <h2 class="question-headings">Question 3: </h2>
+    <h3 class="question-text">You love animals and being in nature</h3>
+    <select class="question-option3">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <h2 class="question-headings">Question 5: </h2>
+    <h3 class="question-text">You are highly opinionated and outspoken about your beliefs</h3>
+    <select class="question-option4">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <h2 class="question-headings">Question 6: </h2>
+    <h3 class="question-text">You can be easily frustrated and vocal about your anger</h3>
+    <select class="question-option5">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <h2 class="question-headings">Question 7: </h2>
+    <h3 class="question-text">You despise the rich and powerful</h3>
+    <select class="question-option6">
+        <option value="" disabled selected>Select your option</option>
+        <option value="1">1 (strongly disagree)</option>
+        <option value="2">2 (somewhat disagree)</option>
+        <option value="3">3 (neutral)</option>
+        <option value="4">4 (somewhat agree)</option>
+        <option value="5">5 (strongly agree)</option>
+    </select>
+
+    <br>
+    <br>
+    <br>
+
+    <button class="submit">Find Friend Match</button>
+
+    <script type="text/javascript">
+        $(".submit").on('click', function (event) {
+            event.preventDefault();
+            var newFriend = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+
+                    ans1 = $(".question-option1").val(),
+                    ans2 = $(".question-option2").val(),
+                    ans3 = $(".question-option3").val(),
+                    ans4 = $(".question-option4").val(),
+                    ans5 = $(".question-option5").val(),
+                    ans6 = $(".question-option6").val()
+                ]
+
+            }
+
+
+            $.post("/api/friends", newFriend)
+                .then(function (data) {
+                    console.log(data)
+                  
+
+                        })
+
+        //modal code would go here
+        
+        })
+
+    </script>
+
+
+
+</body>
+
+</html>
